@@ -123,7 +123,7 @@ def main():
         file1 = input("Enter the path to the first matrix file: ").strip()
         file2 = input("Enter the path to the second matrix file: ").strip()
         operation = input("Enter operation (add / subtract / multiply): ").strip().lower()
-        output = input("Enter output file name: ").strip()
+        output = input("Enter output file name: ") or f"matrix_{operation}.txt"
 
         m1 = SparseMatrix.from_file(file1)
         m2 = SparseMatrix.from_file(file2)
