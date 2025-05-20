@@ -2,19 +2,18 @@
 
 class SparseMatrix:
     """
-    A memory-efficient implementation of a sparse matrix using a dictionary.
-    Supports basic operations and loading/saving from/to a text file.
+    implementation of a sparse matrix using a dictionary.
     """
 
     def __init__(self, num_rows=0, num_cols=0):
-        """Initialize an empty sparse matrix."""
+        """Initialize an empty sparse matrix"""
         self.num_rows = num_rows
         self.num_cols = num_cols
-        self.data = {}  # key: (row, col), value: non-zero value
+        self.data = {}  
 
     @classmethod
     def from_file(cls, file_path):
-        """Creates a SparseMatrix from a formatted text file."""
+        """Create a SparseMatrix from a formatted text file"""
         try:
             with open(file_path, 'r') as f:
                 lines = [line.strip() for line in f if line.strip()]
@@ -48,18 +47,18 @@ class SparseMatrix:
             raise ValueError("Input file has wrong format") from e
 
     def get_element(self, row, col):
-        """Returns the element at (row, col); returns 0 if not set."""
+        """Return the element at (row, col); returns 0 if not set"""
         return self.data.get((row, col), 0)
 
     def set_element(self, row, col, value):
-        """Sets the element at (row, col); removes it if value is 0."""
+        """Set the element at (row, col); removes it if value is 0"""
         if value != 0:
             self.data[(row, col)] = value
         elif (row, col) in self.data:
             del self.data[(row, col)]
 
     def add(self, other):
-        """Returns a new matrix that is the sum of self and other."""
+        """Return a new matrix that is the sum of self and other"""
         if self.num_rows != other.num_rows or self.num_cols != other.num_cols:
             raise ValueError("Addition requires matrices of same dimensions")
 
@@ -73,7 +72,7 @@ class SparseMatrix:
         return result
 
     def subtract(self, other):
-        """Returns a new matrix that is the difference of self and other."""
+        """Return a new matrix that is the difference of self and other"""
         if self.num_rows != other.num_rows or self.num_cols != other.num_cols:
             raise ValueError("Subtraction requires matrices of same dimensions")
 
@@ -87,7 +86,7 @@ class SparseMatrix:
         return result
 
     def multiply(self, other):
-        """Returns the product of self and other as a new matrix."""
+        """Return the product of self and other as a new matrix"""
         if self.num_cols != other.num_rows:
             raise ValueError("Multiplication requires self.cols == other.rows")
 
@@ -103,14 +102,14 @@ class SparseMatrix:
         return result
 
     def __str__(self):
-        """Returns a string representation of the matrix in file format."""
+        """Return a string representation of the matrix in file format"""
         lines = [f"rows={self.num_rows}", f"cols={self.num_cols}"]
         for (r, c), v in sorted(self.data.items()):
             lines.append(f"({r}, {c}, {v})")
         return "\n".join(lines)
 
     def save_to_file(self, file_path):
-        """Saves the matrix to a text file in a readable format."""
+        """Save the matrix to a text file in a readable format"""
         try:
             with open(file_path, 'w') as f:
                 f.write(str(self))
@@ -119,7 +118,7 @@ class SparseMatrix:
 
 
 def main():
-    """CLI interface for matrix operations: add, subtract, multiply."""
+    """CLI interface for matrix operations: add, subtract, multiply"""
     try:
         file1 = input("Enter the path to the first matrix file: ").strip()
         file2 = input("Enter the path to the second matrix file: ").strip()
