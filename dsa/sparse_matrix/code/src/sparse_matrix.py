@@ -2,8 +2,7 @@
 
 class SparseMatrix:
     """
-    A memory-efficient implementation of a sparse matrix using a dictionary.
-    Supports basic operations and loading/saving from/to a text file.
+    implementation of a sparse matrix using a dictionary.
     """
 
     def __init__(self, num_rows=0, num_cols=0):
@@ -48,18 +47,18 @@ class SparseMatrix:
             raise ValueError("Input file has wrong format") from e
 
     def get_element(self, row, col):
-        """Returns the element at (row, col); returns 0 if not set."""
+        """Return the element at (row, col); returns 0 if not set."""
         return self.data.get((row, col), 0)
 
     def set_element(self, row, col, value):
-        """Sets the element at (row, col); removes it if value is 0."""
+        """Set the element at (row, col); removes it if value is 0."""
         if value != 0:
             self.data[(row, col)] = value
         elif (row, col) in self.data:
             del self.data[(row, col)]
 
     def add(self, other):
-        """Returns a new matrix that is the sum of self and other."""
+        """Return a new matrix that is the sum of self and other."""
         if self.num_rows != other.num_rows or self.num_cols != other.num_cols:
             raise ValueError("Addition requires matrices of same dimensions")
 
@@ -73,7 +72,7 @@ class SparseMatrix:
         return result
 
     def subtract(self, other):
-        """Returns a new matrix that is the difference of self and other."""
+        """Return a new matrix that is the difference of self and other."""
         if self.num_rows != other.num_rows or self.num_cols != other.num_cols:
             raise ValueError("Subtraction requires matrices of same dimensions")
 
@@ -87,8 +86,8 @@ class SparseMatrix:
         return result
 
     def multiply(self, other):
-        """Returns the product of self and other as a new matrix.
-        Optimized to only iterate over non-zero elements.
+        """
+        Return the product of self and other as a new matrix.
         """
         if self.num_cols != other.num_rows:
             raise ValueError("Multiplication requires self.cols == other.rows")
@@ -129,10 +128,10 @@ class SparseMatrix:
 def main():
     """CLI interface for matrix operations: add, subtract, multiply."""
     try:
-        file1 = input("Enter the path to the first matrix file: ").strip()
-        file2 = input("Enter the path to the second matrix file: ").strip()
-        operation = input("Enter operation (add / subtract / multiply): ").strip().lower()
-        output = input("What's the name of the output file: ") or f"matrix_{operation}.txt"
+        file1 = input("Enter the path to the first matrix file please: ").strip()
+        file2 = input("Enter the path to the second matrix file please: ").strip()
+        operation = input("Enter operation you want (add / subtract / multiply): ").strip().lower()
+        output = input("choose the name of the output file: ") or f"matrix_{operation}.txt"
 
         m1 = SparseMatrix.from_file(file1)
         m2 = SparseMatrix.from_file(file2)
